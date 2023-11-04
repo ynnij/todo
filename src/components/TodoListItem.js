@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaTrashCan } from "react-icons/fa6";
 
-const TodoListItem = ({ id, content }) => {
+const TodoListItem = ({ id, content, deleteTodo }) => {
   const [check, setCheck] = useState(false);
 
   const isDone = (e) => {
@@ -21,7 +21,12 @@ const TodoListItem = ({ id, content }) => {
           {content}
         </p>
       )}
-      <button className="flex justify-center items-center">
+      <button
+        className="flex justify-center items-center"
+        onClick={() => {
+          deleteTodo(id);
+        }}
+      >
         <FaTrashCan className="text-gray-100 hover:text-red-500" />
       </button>
     </div>

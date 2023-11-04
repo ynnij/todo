@@ -12,6 +12,7 @@ const TodoTemplate = () => {
   //todo 항목 상태변수
   const [todos, setTodo] = useState([]);
 
+  //todo create
   const addTodo = () => {
     const newItem = {
       id: idRef.current,
@@ -25,6 +26,11 @@ const TodoTemplate = () => {
     inputRef.current.focus();
   };
 
+  //todo delete
+  const deleteTodo = (deleteId) => {
+    setTodo(todos.filter((todo) => todo.id !== deleteId));
+  };
+
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -36,7 +42,7 @@ const TodoTemplate = () => {
       </h5>
       <div>
         <TodoInput addTodo={addTodo} inputRef={inputRef} />
-        {todos && <TodoList todos={todos} />}
+        {todos && <TodoList todos={todos} deleteTodo={deleteTodo} />}
       </div>
     </div>
   );
