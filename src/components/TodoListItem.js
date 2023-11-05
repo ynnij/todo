@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FaTrashCan } from "react-icons/fa6";
-import { BsFillPencilFill, BsCheckLg } from "react-icons/bs";
-import { act } from "react-dom/test-utils";
+import { BsFillPencilFill } from "react-icons/bs";
+import { FaCheck } from "react-icons/fa";
 
 const TodoListItem = ({ id, content, deleteTodo, todos, setTodos }) => {
   const [check, setCheck] = useState(false);
@@ -50,7 +50,7 @@ const TodoListItem = ({ id, content, deleteTodo, todos, setTodos }) => {
       <input
         type="checkbox"
         onChange={isDone}
-        className="h-5 w-5 border border-blue-gray-200 transition-all checked:bg-blue-200 "
+        className="h-4 w-4 border border-blue-gray-200 transition-all checked:bg-blue-200 "
       />
       {isEditClick ? (
         <input
@@ -69,7 +69,7 @@ const TodoListItem = ({ id, content, deleteTodo, todos, setTodos }) => {
       )}
       {isEditClick ? (
         <button onClick={() => updateTodo(id)}>
-          <BsCheckLg className="text-lg mx-auto text-gray-300 hover:text-blue-500" />
+          <FaCheck className="text-lg mx-auto text-gray-300 hover:text-blue-500" />
         </button>
       ) : (
         <div className="col-span-2 flex justify-around ">
