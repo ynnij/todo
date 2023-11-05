@@ -21,6 +21,9 @@ const TodoTemplate = () => {
     inputRef.current.value = "";
     inputRef.current.focus();
   };
+  const activeEnter = (e) => {
+    if (e.key === "Enter") addTodo();
+  };
 
   //todo delete
   const deleteTodo = (deleteId) => {
@@ -37,7 +40,11 @@ const TodoTemplate = () => {
         TODO
       </h5>
       <div>
-        <TodoInput addTodo={addTodo} inputRef={inputRef} />
+        <TodoInput
+          addTodo={addTodo}
+          inputRef={inputRef}
+          onKeyPress={activeEnter}
+        />
         {todos && (
           <TodoList todos={todos} deleteTodo={deleteTodo} setTodos={setTodos} />
         )}

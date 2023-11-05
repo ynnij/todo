@@ -1,6 +1,7 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FaTrashCan } from "react-icons/fa6";
 import { BsFillPencilFill, BsCheckLg } from "react-icons/bs";
+import { act } from "react-dom/test-utils";
 
 const TodoListItem = ({ id, content, deleteTodo, todos, setTodos }) => {
   const [check, setCheck] = useState(false);
@@ -26,9 +27,20 @@ const TodoListItem = ({ id, content, deleteTodo, todos, setTodos }) => {
     setIsEditClick(false);
   };
 
+  const activeEnter = (e) => {
+    if (e.key === "Enter") {
+      updateTodo(id);
+      setIsEditClick(false);
+    }
+  };
+
   const isDone = (e) => {
     setCheck(e.target.checked);
   };
+
+  useEffect(() => {
+    if (isEditClick) updateRef.current.focus();
+  }, [isEditClick]);
 
   return (
     <div
@@ -46,6 +58,7 @@ const TodoListItem = ({ id, content, deleteTodo, todos, setTodos }) => {
           className="pl-3 col-span-5 rounded-lg border border-blue-gray-200 
         focus:border-2 focus:border-blue-500 focus:outline-0"
           defaultValue={content}
+          onKeyDown={activeEnter}
         />
       ) : !check ? (
         <p className="col-span-4 text-start text-black">{content}</p>
