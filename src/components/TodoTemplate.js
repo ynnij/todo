@@ -3,23 +3,19 @@ import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
 
 const TodoTemplate = () => {
-  //inputRef 변수
-  const inputRef = useRef();
-
-  //todo id를 위한 Ref 변수
-  const idRef = useRef(1);
-
-  //todo 항목 상태변수
-  const [todos, setTodo] = useState([]);
+  const inputRef = useRef(); //inputRef 변수
+  const idRef = useRef(1); //todo id를 위한 Ref 변수
+  const [todos, setTodos] = useState([]); //todo 항목 상태변수
 
   //todo create
   const addTodo = () => {
+    if (inputRef.current.value === "") return;
     const newItem = {
       id: idRef.current,
       content: inputRef.current.value,
     };
 
-    setTodo(todos.concat(newItem));
+    setTodos(todos.concat(newItem));
 
     idRef.current += 1;
     inputRef.current.value = "";
@@ -28,7 +24,7 @@ const TodoTemplate = () => {
 
   //todo delete
   const deleteTodo = (deleteId) => {
-    setTodo(todos.filter((todo) => todo.id !== deleteId));
+    setTodos(todos.filter((todo) => todo.id !== deleteId));
   };
 
   useEffect(() => {
@@ -42,7 +38,9 @@ const TodoTemplate = () => {
       </h5>
       <div>
         <TodoInput addTodo={addTodo} inputRef={inputRef} />
-        {todos && <TodoList todos={todos} deleteTodo={deleteTodo} />}
+        {todos && (
+          <TodoList todos={todos} deleteTodo={deleteTodo} setTodos={setTodos} />
+        )}
       </div>
     </div>
   );
